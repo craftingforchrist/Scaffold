@@ -342,7 +342,7 @@ public class ScaffoldCommands {
     }
 
     @CommandPermissions("scaffold.command.closeall")
-    @Command(aliases = "closeall", desc = "Close all worlds.", min = 1, max = 1)
+    @Command(aliases = "closeall", desc = "Close all worlds.", min = 0)
     public static void closeall(CommandContext cmd, CommandSender sender) {
         List<ScaffoldWorld> all = Scaffold.get().getScaffoldWorlds();
         all.forEach(worlds -> {
