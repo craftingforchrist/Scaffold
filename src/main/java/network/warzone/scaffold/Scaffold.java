@@ -11,9 +11,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 public final class Scaffold extends JavaPlugin implements TabCompleter {
 
@@ -95,5 +94,22 @@ public final class Scaffold extends JavaPlugin implements TabCompleter {
         }
         locked.put(wrapper, wrapper.getWorld().get().getFullTime());
         return true;
+    }
+
+    public List<ScaffoldWorld> getScaffoldWorlds() {
+        List<ScaffoldWorld> all = new ArrayList<>();
+        File scaffold = new File("scaffold");
+        if (scaffold.exists()) {
+            File[] contents = scaffold.listFiles();
+            if (contents != null) {
+                for (File folder : contents) {
+                    ScaffoldWorld world = new ScaffoldWorld(folder.getName());
+                    if (world.isCreated()) {
+                        all.add(world);
+                    }
+                }
+            }
+        }
+        return all;
     }
 }

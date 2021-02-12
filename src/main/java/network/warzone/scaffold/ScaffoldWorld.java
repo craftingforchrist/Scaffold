@@ -8,9 +8,12 @@ import network.warzone.scaffold.utils.config.ConfigFile;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @ToString(exclude = {"folder", "configFile"}) @Data
@@ -147,6 +150,12 @@ public class ScaffoldWorld {
             }
         }
         return new ScaffoldWorld(query);
+    }
+
+    public List<Player> getPlayers() {
+        List<Player> players = new ArrayList<>();
+        getWorld().ifPresent(w -> w.getEntitiesByClass(Player.class).forEach(players::add));
+        return players;
     }
 
 }

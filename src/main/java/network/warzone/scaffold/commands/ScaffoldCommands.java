@@ -337,8 +337,19 @@ public class ScaffoldCommands {
                 names.add(ChatColor.RED + wrapper.getName());
         }
 
-
         String list = Joiner.on(ChatColor.WHITE + ", ").join(names);
         sender.sendMessage(ChatColor.GRAY + prefix + ": " + list);
     }
+
+    @CommandPermissions("scaffold.command.closeall")
+    @Command(aliases = "closeall", desc = "Close all worlds.", min = 1, max = 1)
+    public static void closeall(CommandContext cmd, CommandSender sender) {
+        List<ScaffoldWorld> all = Scaffold.get().getScaffoldWorlds();
+        all.forEach(worlds -> {
+            if (worlds.isOpen() && worlds.getPlayers().isEmpty()) {
+                worlds.unload();
+            }
+        });
+    }
+
 }
